@@ -1,11 +1,12 @@
 package com.aspectlib.test;
 
 import android.util.Log;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 /**
  * Created by lining on 2017/10/19.
@@ -17,8 +18,6 @@ public class TraceAspect {
     private static final String POINT_CALLMETHOD = "call(* com.lining.gradlebuild.MainActivity.*(..))";
     @Pointcut(POINT_METHOD)
     public void methodAnnotated(){}
-    @Pointcut(POINT_CALLMETHOD)
-    public void methodCallAnnotated(){}
     @Around("methodAnnotated()")
     public Object aronudWeaverPoint(ProceedingJoinPoint joinPoint) throws Throwable {
         joinPoint.proceed();
@@ -26,8 +25,24 @@ public class TraceAspect {
         Log.e(TAG,"----------------------------->aroundWeaverPoint");
         return  result;//替换原方法的返回值
     }
-    @Before("methodCallAnnotated()")
+
+    @Pointcut(POINT_CALLMETHOD)
+    public void methodCallAnnotated(){}
+    @After("methodAnnotated()")
     public void beforecall(JoinPoint joinPoint){
-        Log.e(TAG,"beforecall");
+        Log.e(TAG,"------------------------>beforecall");
     }
+
+    private static final String POINT_TEST = "execution(* com.lining.gradlebuild.MainActivity.testLog(..))";
+    @Pointcut(POINT_TEST)
+    public void methodExecution(){}
+    @Around("methodExecution()")
+    public Object aronudExecution(ProceedingJoinPoint joinPoint) throws Throwable {
+        joinPoint.proceed();
+        String result = "----------------------------->aronudExecution";
+        Log.e(TAG,"----------------------------->aronudExecution");
+        return  result;//替换原方法的返回值
+    }
+
+
 }
