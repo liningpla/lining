@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class TraceAspect {
     private String TAG = "TAG ";
-    private static final String POINT_METHOD = "execution(* com.lining.gradlebuild.MainActivity.*(..))";
+    private static final String POINT_METHOD = "execution(* com.lining.gradlebuild.MainActivity.onCreate(..))";
     private static final String POINT_CALLMETHOD = "call(* com.lining.gradlebuild.MainActivity.*(..))";
     @Pointcut(POINT_METHOD)
     public void methodAnnotated(){}
