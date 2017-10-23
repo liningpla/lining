@@ -37,12 +37,9 @@ public class TraceAspect {
     @Pointcut(POINT_TEST)
     public void methodExecution(){}
     @Around("methodExecution()")
-    public Object aronudExecution(ProceedingJoinPoint joinPoint) throws Throwable {
+    public void aronudExecution(ProceedingJoinPoint joinPoint) throws Throwable {
         joinPoint.proceed();
         String result = "----------------------------->aronudExecution";
         Log.e(TAG,"----------------------------->aronudExecution");
-        return  result;//替换原方法的返回值
     }
-
-
 }
