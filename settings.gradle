@@ -1,1 +1,1 @@
-include ':app', ':aspectlib'
+include ':app', ':aspectlib', ':recorduplod'

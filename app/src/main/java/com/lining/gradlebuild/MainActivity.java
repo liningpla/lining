@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         map.put("lining","lining");
         testLog("testLog", map);
         getPermission();
+        RecordTest.initRecord();
     }
 
     private void testLog(String param, Map<String, String> map){
