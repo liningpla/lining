@@ -16,17 +16,29 @@ public class BaseEvent<T>{
      * RECORD_NORMAL 普通上报类型
      * RECORD_TRANSACTION 事务上报类型
      */
-    public enum Type {
-        RECORD_NORMAL, RECORD_TRANSACTION
-    }
-    private BaseEvent baseEvent;
-    public Type recordType;
+    public static final String RECORD_NORMAL = "record_normal";
+    public static final String RECORD_TRANSACTION = "record_transaction";
+
+
+    private String category;
+    private String action_type;
     private T recrodBean;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getAction_type() {
+        return action_type;
+    }
+
     public T getRecrodBean() {
         return recrodBean;
     }
-    public BaseEvent(Type recordType, T recrodBean){
-        this.recordType = recordType;
+
+    public BaseEvent(String category, String action_type, T recrodBean){
+        this.category = category;
+        this.action_type = action_type;
         this.recrodBean = recrodBean;
     }
     public String toJosn() {
