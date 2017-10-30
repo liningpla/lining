@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void getPhoneNum(){
         TelephonyManager tm = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
-        String deviceid = tm.getDeviceId();//获取智能设备唯一编号
         String te1  = tm.getLine1Number();//获取本机号码
         Log.e("lining","----------------------te1 = "+ te1);
     }
