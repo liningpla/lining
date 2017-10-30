@@ -68,7 +68,7 @@ public class AnalyticUtil {
     private static void saveAnalyticData(List<BaseEvent> queue) {
         JSONArray array = new JSONArray();
         for (BaseEvent baseEvent : queue) {
-            if (baseEvent.getAction_type().startsWith("recharge") || "monitor".equals(baseEvent.getCategory())) {
+            if (baseEvent.getAction_type().startsWith(BaseEvent.RECORD_TRANSACTION)) {
                 array.add(baseEvent);
             }
         }
