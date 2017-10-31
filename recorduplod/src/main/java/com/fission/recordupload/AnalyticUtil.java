@@ -47,7 +47,7 @@ public class AnalyticUtil {
                 sendByteArray(ANALYTIC_API, event, true, new AnalyticEventListener() {
                     @Override
                     public void onSuccess(BaseEvent event) {
-
+                        doFailureEvent(event);
                     }
                     @Override
                     public void onFailure(BaseEvent event) {
@@ -117,6 +117,11 @@ public class AnalyticUtil {
         byte[] compressed = bos.toByteArray();
         bos.close();
         return compressed;
+    }
+
+    private static void doFailureEvent(BaseEvent event){
+        event.isSuccess = false;
+
     }
 
     private interface AnalyticEventListener{

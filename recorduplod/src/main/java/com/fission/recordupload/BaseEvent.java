@@ -25,6 +25,7 @@ public class BaseEvent implements Serializable{
 
     private String category;
     private String action_type;
+    private long time;
     public boolean isSuccess;
     private RecordBean recrodBean;
 
@@ -43,6 +44,7 @@ public class BaseEvent implements Serializable{
     public BaseEvent(RecordBean recrodBean){
         this.category = recrodBean.getCategory();
         this.action_type = recrodBean.getAction_type();
+        this.time = recrodBean.getTime();
         this.recrodBean = recrodBean;
     }
     public String toJosn() {
@@ -81,6 +83,29 @@ public class BaseEvent implements Serializable{
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+        Log.e("lining","---------reMap.size() = "+reMap.size());
         return reMap;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BaseEvent baseEvent = (BaseEvent) o;
+
+        if (time != baseEvent.time) return false;
+        if (category != null ? !category.equals(baseEvent.category) : baseEvent.category != null)
+            return false;
+        return action_type != null ? action_type.equals(baseEvent.action_type) : baseEvent.action_type == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = category != null ? category.hashCode() : 0;
+        result = 31 * result + (action_type != null ? action_type.hashCode() : 0);
+        result = 31 * result + (int) (time ^ (time >>> 32));
+        return result;
     }
 }

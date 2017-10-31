@@ -2,17 +2,20 @@ package com.fission.recordupload;
 
 import android.os.Build;
 
+import java.io.Serializable;
+
 /**
  * Created by lining on 2017/10/31.
  */
 
-public class RecordBean {
+public class RecordBean implements Serializable {
 
     private String category;
     private String action_type;
-    private String dev;
-    private int os_version;
     private long time;
+
+    public String dev;
+    public int os_version;
 
     public RecordBean(String category, String action_type) {
         this.category = category;
