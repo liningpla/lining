@@ -26,7 +26,6 @@ public class BaseEvent implements Serializable{
     private String category;
     private String action_type;
     private long time;
-    public boolean isSuccess;
     private RecordBean recrodBean;
 
     public String getCategory() {
