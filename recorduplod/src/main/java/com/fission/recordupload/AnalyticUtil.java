@@ -43,7 +43,9 @@ public class AnalyticUtil {
                     }
                     @Override
                     public void onFailure() {
-                        RecrodUtils.saveRecordByJsonToFile(event);
+                        if(TextUtils.equals(event.getCategory(), BaseEvent.RECORD_TRANSACTION)){
+                            RecrodUtils.saveRecordByJsonToFile(event.getRecrodBean());
+                        }
                     }
                 });
             }
@@ -127,10 +129,6 @@ public class AnalyticUtil {
         byte[] compressed = bos.toByteArray();
         bos.close();
         return compressed;
-    }
-
-    private static void doFailureEvent(BaseEvent event){
-        RecrodUtils.saveRecordByJsonToFile(event);
     }
 
     private interface AnalyticEventListener{

@@ -2,6 +2,7 @@ package com.fission.recordupload;
 
 import android.app.Activity;
 import android.os.Environment;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 
@@ -63,16 +64,16 @@ public class RecrodUtils {
     /**
      * 文件信息已json格式保存到本地文件
      */
-    public static void saveRecordByJsonToFile(BaseEvent baseEvent) {
+    public static void saveRecordByJsonToFile(RecordBean recordBean) {
         try {
-            List<BaseEvent> baseEvents = getRecordsFormFile();
-            if(baseEvents == null){
+            List<RecordBean> recordBeans = getRecordsFormFile();
+            if(recordBeans == null){
                 createDir(recordDir);
-                baseEvents = new ArrayList<>();
+                recordBeans = new ArrayList<>();
             }
-            if(!baseEvents.contains(baseEvent)){
-                baseEvents.add(baseEvent);
-                String fileStr = JSON.toJSONString(baseEvents).toString();
+            if(!recordBeans.contains(recordBean)){
+                recordBeans.add(recordBean);
+                String fileStr = JSON.toJSONString(recordBeans).toString();
                 // 创建文件对象
                 File fileText = new File(recordDir+event);
                 // 向文件写入对象写入信息
@@ -88,8 +89,8 @@ public class RecrodUtils {
     }
 
     /**根据文件查找对应的BaseEvent*/
-    public static List<BaseEvent> getRecordsFormFile(){
-        List<BaseEvent> baseEvents = null;
+    public static List<RecordBean> getRecordsFormFile(){
+        List<RecordBean> recordBeens = null;
         File fileEvent = new File(recordDir + event);
         if(fileEvent.exists()){
             try {
@@ -100,12 +101,13 @@ public class RecrodUtils {
                 in.read(buffer);
                 in.close();
                 String str =new String(buffer,"UTF-8");
-                baseEvents = JSON.parseArray(str, BaseEvent.class);
+                recordBeens = JSON.parseArray(str, RecordBean.class);
+                Log.e("lining"," str = "+str);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return baseEvents;
+        return recordBeens;
     }
 
     /**根据文件查找对应的FileInfo*/
@@ -121,6 +123,7 @@ public class RecrodUtils {
                 in.read(buffer);
                 in.close();
                 str =new String(buffer,"UTF-8");
+                Log.e("lining"," str = "+str);
             } catch (IOException e) {
                 e.printStackTrace();
             }

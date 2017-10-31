@@ -25,20 +25,14 @@ public class RecordBean implements Serializable {
         this.os_version = Build.VERSION.SDK_INT;
     }
 
+    public RecordBean() {}
+
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getAction_type() {
         return action_type;
-    }
-
-    public void setAction_type(String action_type) {
-        this.action_type = action_type;
     }
 
     public long getTime() {
@@ -47,5 +41,26 @@ public class RecordBean implements Serializable {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RecordBean that = (RecordBean) o;
+
+        if (time != that.time) return false;
+        if (!category.equals(that.category)) return false;
+        return action_type.equals(that.action_type);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = category.hashCode();
+        result = 31 * result + action_type.hashCode();
+        result = 31 * result + (int) (time ^ (time >>> 32));
+        return result;
     }
 }

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,7 @@ import java.util.Map;
  * 上报事务类
  */
 
-public class BaseEvent implements Serializable{
+public class BaseEvent{
     /**
      * RECORD_NORMAL 普通上报类型
      * RECORD_TRANSACTION 事务上报类型

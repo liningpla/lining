@@ -1,5 +1,6 @@
 package com.lining.gradlebuild;
 
+import com.fission.recordupload.AnalyticUtil;
 import com.fission.recordupload.BaseEvent;
 
 /**
@@ -13,8 +14,7 @@ public class RecordTest {
         textBean.userId = "111111";
         textBean.userName = "lining";
         BaseEvent baseEvent = new BaseEvent(textBean);
-        baseEvent.toJosn();
-        baseEvent.obtainMap();
+        AnalyticUtil.analytic(baseEvent);
     }
 
 }

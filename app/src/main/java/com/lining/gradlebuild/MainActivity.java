@@ -16,6 +16,8 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.fission.recordupload.GoogleAnalyticsUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        GoogleAnalyticsUtils.init(this);
         Map<String, String> map = new HashMap<String, String>();
         map.put("lining","lining");
         testLog("testLog", map);
