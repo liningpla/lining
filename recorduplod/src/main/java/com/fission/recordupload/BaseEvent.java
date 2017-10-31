@@ -1,7 +1,5 @@
 package com.fission.recordupload;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 
 import java.lang.reflect.Field;
@@ -52,7 +50,6 @@ public class BaseEvent{
         }catch (Exception e){
             e.printStackTrace();
         }
-        Log.e("lining","---------jsonStr = "+jsonStr);
         return jsonStr;
     }
     public Map obtainMap() {
@@ -81,7 +78,6 @@ public class BaseEvent{
         } catch (SecurityException e) {
             e.printStackTrace();
         }
-        Log.e("lining","---------reMap.size() = "+reMap.size());
         return reMap;
     }
 

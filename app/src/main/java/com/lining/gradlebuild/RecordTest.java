@@ -10,11 +10,20 @@ import com.fission.recordupload.BaseEvent;
 public class RecordTest {
 
     public static void initRecord(){
-        TextBean textBean = new TextBean(BaseEvent.RECORD_TRANSACTION, "click_action");
-        textBean.userId = "111111";
-        textBean.userName = "lining";
-        BaseEvent baseEvent = new BaseEvent(textBean);
-        AnalyticUtil.analytic(baseEvent);
+        addRecord();
+//        AnalyticUtil.doUplaodFailureEvent();
     }
 
+    private static void addRecord(){
+        for(int i = 0; i < 400; i ++){
+            String category = BaseEvent.RECORD_NORMAL;
+            if(i % 2 == 0){
+                category = BaseEvent.RECORD_TRANSACTION;
+            }
+            TextBean textBean = new TextBean(category, "click_action");
+            textBean.userId = "111111"+"___"+i;
+            textBean.userName = "lining"+"___"+i;
+            AnalyticUtil.analytic(new BaseEvent(textBean));
+        }
+    }
 }

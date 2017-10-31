@@ -2,9 +2,12 @@ package com.fission.recordupload;
 
 import android.app.Activity;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,7 +15,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +24,7 @@ import java.util.List;
 public class RecrodUtils {
     public static final String recordDir = getAppFilePath()+"/record/event/";
     public static final String event = "event";
+    private static Object object = new Object();
     /**
      * 创建文件目录
      */
@@ -60,32 +63,47 @@ public class RecrodUtils {
         }
         return nameFile.getAbsolutePath();
     }
-
+    static volatile Integer count = 0;
     /**
      * 文件信息已json格式保存到本地文件
      */
-    public static void saveRecordByJsonToFile(RecordBean recordBean) {
-        try {
-            List<RecordBean> recordBeans = getRecordsFormFile();
-            if(recordBeans == null){
+    public static void saveRecordByJsonToFile(BaseEvent baseEvent) {
+        synchronized (object){
+            count ++;
+            try {
+                JSONObject jsonObject = JSONObject.parseObject(baseEvent.toJosn());
+                String strJson = getRecordJsonFormFile();
+                JSONArray jsonArray = null;
+                boolean isAdd = false;
                 createDir(recordDir);
-                recordBeans = new ArrayList<>();
+                if(TextUtils.isEmpty(strJson)){
+                    isAdd = true;
+                    jsonArray = new JSONArray();
+                }else{
+                    jsonArray = JSON.parseArray(strJson);
+                    if(jsonArray !=null && !jsonArray.contains(jsonObject)){
+                        isAdd = true;
+                    }
+                }
+                if(isAdd){
+                    jsonArray.add(jsonObject);
+                    String fileStr = jsonArray.toString();
+                    // 创建文件对象
+                    File fileText = new File(recordDir+event);
+                    // 向文件写入对象写入信息
+                    FileWriter fileWriter = new FileWriter(fileText);
+                    // 写文件
+                    fileWriter.write(fileStr);
+                    // 关闭
+                    fileWriter.close();
+                    Log.e("lining"," saveRecordByJsonToFile = "+fileStr);
+                }
+                Log.e("lining","  ---------------count = "+count);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if(!recordBeans.contains(recordBean)){
-                recordBeans.add(recordBean);
-                String fileStr = JSON.toJSONString(recordBeans).toString();
-                // 创建文件对象
-                File fileText = new File(recordDir+event);
-                // 向文件写入对象写入信息
-                FileWriter fileWriter = new FileWriter(fileText);
-                // 写文件
-                fileWriter.write(fileStr);
-                // 关闭
-                fileWriter.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
     }
 
     /**根据文件查找对应的BaseEvent*/
@@ -123,7 +141,7 @@ public class RecrodUtils {
                 in.read(buffer);
                 in.close();
                 str =new String(buffer,"UTF-8");
-                Log.e("lining"," str = "+str);
+                Log.e("lining"," getRecordJsonFormFile = "+str);
             } catch (IOException e) {
                 e.printStackTrace();
             }
