@@ -6,14 +6,15 @@ import java.util.concurrent.ExecutorService;
  * Created by lining on 2017/6/13.
  */
 
-public class FissionThreadManger {
-    private static FissionThreadManger threadManger;
+public class RecordThreadManger {
+    public static int DEV_CUP_NUM = getNumCores();//cup 核数
+    private static RecordThreadManger threadManger;
     private static ExecutorService executorService;
-    public static FissionThreadManger getInstance() {
+    public static RecordThreadManger getInstance() {
         if (threadManger == null) {
-            synchronized (FissionThreadManger.class) {
+            synchronized (RecordThreadManger.class) {
                 if (threadManger == null){
-                    threadManger = new FissionThreadManger();
+                    threadManger = new RecordThreadManger();
                 }
                 initExecutorService();
             }
@@ -41,5 +42,14 @@ public class FissionThreadManger {
     public void shutDownNow(){
         executorService.shutdownNow();
     }
+    //CPU个数
+    private static int getNumCores() {
+        try {
+            return Runtime.getRuntime().availableProcessors();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
 
+    }
 }

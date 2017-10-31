@@ -9,10 +9,10 @@ import com.fission.recordupload.BaseEvent;
 public class RecordTest {
 
     public static void initRecord(){
-        TextBean textBean = new TextBean();
+        TextBean textBean = new TextBean(BaseEvent.RECORD_TRANSACTION, "click_action");
         textBean.userId = "111111";
         textBean.userName = "lining";
-        BaseEvent<TextBean> baseEvent = new BaseEvent(BaseEvent.Type.RECORD_TRANSACTION, textBean);
+        BaseEvent baseEvent = new BaseEvent(textBean);
         baseEvent.toJosn();
         baseEvent.obtainMap();
     }

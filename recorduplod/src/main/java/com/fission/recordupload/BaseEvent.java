@@ -1,5 +1,7 @@
 package com.fission.recordupload;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 
 import java.io.Serializable;
@@ -12,7 +14,7 @@ import java.util.Map;
  * 上报事务类
  */
 
-public class BaseEvent<T> implements Serializable{
+public class BaseEvent implements Serializable{
     /**
      * RECORD_NORMAL 普通上报类型
      * RECORD_TRANSACTION 事务上报类型
@@ -23,7 +25,8 @@ public class BaseEvent<T> implements Serializable{
 
     private String category;
     private String action_type;
-    private T recrodBean;
+    public boolean isSuccess;
+    private RecordBean recrodBean;
 
     public String getCategory() {
         return category;
@@ -33,13 +36,13 @@ public class BaseEvent<T> implements Serializable{
         return action_type;
     }
 
-    public T getRecrodBean() {
+    public RecordBean getRecrodBean() {
         return recrodBean;
     }
 
-    public BaseEvent(String category, String action_type, T recrodBean){
-        this.category = category;
-        this.action_type = action_type;
+    public BaseEvent(RecordBean recrodBean){
+        this.category = recrodBean.getCategory();
+        this.action_type = recrodBean.getAction_type();
         this.recrodBean = recrodBean;
     }
     public String toJosn() {
@@ -49,6 +52,7 @@ public class BaseEvent<T> implements Serializable{
         }catch (Exception e){
             e.printStackTrace();
         }
+        Log.e("lining","---------jsonStr = "+jsonStr);
         return jsonStr;
     }
     public Map obtainMap() {

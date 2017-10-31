@@ -10,17 +10,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.fission.sevennujoom.shortvideo.util.SvDeviceUtils;
-
 /**
  * Created by lining on 2017/6/13.
  */
 
 public class PriorityExecutor extends ThreadPoolExecutor {
 
-    private static final int CORE_POOL_SIZE = SvDeviceUtils.DEV_CUP_NUM + 1;//线程池维护线程的最少数量
-    private static final int MAXIMUM_POOL_SIZE = SvDeviceUtils.DEV_CUP_NUM*2 + 1;//线程池维护线程的最大数量
-    private static final int MAXIMUM_QUEUE_SIZE = 50;//最大的任务队列
+    private static final int CORE_POOL_SIZE = RecordThreadManger.DEV_CUP_NUM + 1;//线程池维护线程的最少数量
+    private static final int MAXIMUM_POOL_SIZE = RecordThreadManger.DEV_CUP_NUM*2 + 1;//线程池维护线程的最大数量
+    private static final int MAXIMUM_QUEUE_SIZE = 100;//最大的任务队列
     private static final int KEEP_ALIVE = 1;//保持存活时间，当线程数大于corePoolSize的空闲线程能保持的最大时间。
     private static final AtomicLong SEQ_SEED = new AtomicLong(0);//主要获取添加任务
 
