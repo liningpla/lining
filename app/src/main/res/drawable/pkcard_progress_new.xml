@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+  <!-- This is the main color -->
+  <item>
+    <shape>
+      <!--    边框颜色 -->
+      <solid android:color="#F75938"/>
+      <!--<corners android:bradius="15dp"/>-->
+      <corners android:bottomLeftRadius="15dp" android:topLeftRadius="15dp" android:bottomRightRadius="0dp" android:topRightRadius="0dp"/>
+    </shape>
+  </item>
+</layer-list>

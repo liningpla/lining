@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="321dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"
+        android:padding="3dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/pkcard_progress_new">
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:background="@drawable/pkcard_progress_text"
+        android:layout_centerHorizontal="true"
+        android:padding="3dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/liveshow_top_pk_text_new"
+            android:textColor="#FFFFFF"
+            android:text="12:11:11"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_pkcard_progress"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:paddingStart="3dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <View
+            android:id="@+id/vv_pk_top_left_support"
+            android:layout_width="0dp"
+            android:layout_height="23dp"
+            android:layout_weight="0.55"
+            android:background="@drawable/liveshow_top_pk_left_new" />
+
+        <View
+            android:id="@+id/vv_pk_top_right_support"
+            android:layout_width="0dp"
+            android:layout_height="23dp"
+            android:layout_weight="0.55"
+            android:background="@drawable/liveshow_top_pk_right_new" />
+    </LinearLayout>
+
+</RelativeLayout>

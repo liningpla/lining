@@ -17,6 +17,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.fission.recordupload.GoogleAnalyticsUtils;
+import com.test.TestActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         testLog("testLog", map);
         getPermission();
         RecordTest.initRecord();
+        startActivity(new Intent(this, TestActivity.class));
     }
 
     private void testLog(String param, Map<String, String> map){
