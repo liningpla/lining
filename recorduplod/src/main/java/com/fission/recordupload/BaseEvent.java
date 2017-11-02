@@ -22,7 +22,7 @@ public class BaseEvent{
 
     private String category;
     private String action_type;//标记，区分是充值，购买，登录等事务类型
-    private String transactionId;//事务id,所有事件归属于一个事务id
+    private String transactionId = "0";//事务id,所有事件归属于一个事务id
     private static RecordBean recrodBean;
     /**
      * 事务类型构造

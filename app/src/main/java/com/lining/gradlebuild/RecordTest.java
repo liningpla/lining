@@ -22,6 +22,7 @@ public class RecordTest {
             textBean.userId = "111111"+"___"+i;
             textBean.userName = "lining"+"___"+i;
             BaseEvent.transaction("111","1111").obtainBean(textBean).analytic("");
+//            BaseEvent.normal("").obtainBean(textBean).analytic("");
         }
     }
 
