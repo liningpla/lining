@@ -43,10 +43,9 @@ public class AnalyticUtil {
                     }
                     @Override
                     public void onFailure() {
-//                        if(TextUtils.equals(event.getCategory(), BaseEvent.RECORD_TRANSACTION)){
-//                            RecrodUtils.saveRecordByJsonToFile(event);
-//                        }
-                        RecrodUtils.saveRecordByJsonToFile(event);
+                        if(TextUtils.equals(event.getCategory(), BaseEvent.RECORD_TRANSACTION)){
+                            RecrodUtils.saveRecordByJsonToFile(event);
+                        }
                     }
                 });
             }
