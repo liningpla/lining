@@ -22,22 +22,20 @@ import okhttp3.Response;
  * Created by hemeng on 16/2/22.
  */
 public class AnalyticUtil {
-
-    public static final String ANALYTIC_API = "";
     static final String CHARSET = "UTF-8";
     /**
      * 正常统计操作事件
      *
      * @param event
      */
-    public static void analytic(final BaseEvent event) {
+    public static void analytic(final BaseEvent event, final String url) {
         if (event == null) {
             return;
         }
         RecordThreadManger.getInstance().execute(Priority.HIGH, new Runnable() {
             @Override
             public void run() {
-                sendByteArray(ANALYTIC_API, event.toJosn(), true, new AnalyticEventListener() {
+                sendByteArray(url, event.toJosn(), true, new AnalyticEventListener() {
                     @Override
                     public void onSuccess() {
                     }
@@ -52,13 +50,13 @@ public class AnalyticUtil {
         });
         GoogleAnalyticsUtils.onAnalyticEvent(event);
     }
-    public static void doUplaodFailureEvent(){
+    public static void doUplaodFailureEvent(final String url){
         final String recordsJson = RecrodUtils.getRecordJsonFormFile();
         if(TextUtils.isEmpty(recordsJson)){
             RecordThreadManger.getInstance().execute(Priority.HIGH, new Runnable() {
                 @Override
                 public void run() {
-                    sendByteArray(ANALYTIC_API, recordsJson, true, new AnalyticEventListener() {
+                    sendByteArray(url, recordsJson, true, new AnalyticEventListener() {
                         @Override
                         public void onSuccess() {
                             RecrodUtils.deleteRecrodsFile();

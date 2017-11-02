@@ -2,7 +2,6 @@ package com.lining.gradlebuild;
 
 import android.util.Log;
 
-import com.fission.recordupload.AnalyticUtil;
 import com.fission.recordupload.BaseEvent;
 
 /**
@@ -12,21 +11,17 @@ import com.fission.recordupload.BaseEvent;
 public class RecordTest {
 
     public static void initRecord(){
-//        addRecord();
+        addRecord();
 //        AnalyticUtil.doUplaodFailureEvent();
-        main();
+//        main();
     }
 
     private static void addRecord(){
-        for(int i = 0; i < 400; i ++){
-            String category = BaseEvent.RECORD_NORMAL;
-            if(i % 2 == 0){
-                category = BaseEvent.RECORD_TRANSACTION;
-            }
-            TextBean textBean = new TextBean(category, "click_action");
+        for(int i = 0; i < 40; i ++){
+            TextBean textBean = new TextBean();
             textBean.userId = "111111"+"___"+i;
             textBean.userName = "lining"+"___"+i;
-            AnalyticUtil.analytic(new BaseEvent(textBean));
+            BaseEvent.transaction("111","1111").obtainBean(textBean).analytic("");
         }
     }
 

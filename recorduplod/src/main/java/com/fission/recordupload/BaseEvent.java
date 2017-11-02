@@ -18,12 +18,49 @@ public class BaseEvent{
      */
     public static final String RECORD_NORMAL = "record_normal";
     public static final String RECORD_TRANSACTION = "record_transaction";
-
+    private static BaseEvent baseEvent;
 
     private String category;
-    private String action_type;
-    private long time;
-    private RecordBean recrodBean;
+    private String action_type;//标记，区分是充值，购买，登录等事务类型
+    private String transactionId;//事务id,所有事件归属于一个事务id
+    private static RecordBean recrodBean;
+    /**
+     * 事务类型构造
+     * @param action_type 标记，区分是充值，购买，登录，点击等动作
+     * @param transactionId 事务id,所有事件归属于一个事务id
+     * */
+    public static BaseEvent transaction(String action_type, String transactionId){
+        baseEvent = new BaseEvent(RECORD_TRANSACTION, action_type, transactionId);
+        return baseEvent;
+    }
+    /**
+     * 普通类型构造
+     * @param action_type 标记，区分是充值，购买，登录，点击等动作
+     * */
+    public static BaseEvent normal(String action_type){
+        baseEvent = new BaseEvent(RECORD_NORMAL, action_type);
+        return baseEvent;
+    }
+    public BaseEvent(String category, String action_type){
+        this.category = category;
+        this.action_type = action_type;
+    }
+    public BaseEvent(String category, String action_type, String transactionId){
+        this.category = category;
+        this.action_type = action_type;
+        this.transactionId = transactionId;
+    }
+    public BaseEvent obtainBean(RecordBean recrodBean){
+        recrodBean.setCategory(category);
+        recrodBean.setAction_type(action_type);
+        recrodBean.setTransactionId(transactionId);
+        this.recrodBean = recrodBean;
+        return baseEvent;
+    }
+
+    public void analytic(String url){
+       AnalyticUtil.analytic(baseEvent, url);
+    }
 
     public String getCategory() {
         return category;
@@ -37,12 +74,6 @@ public class BaseEvent{
         return recrodBean;
     }
 
-    public BaseEvent(RecordBean recrodBean){
-        this.category = recrodBean.getCategory();
-        this.action_type = recrodBean.getAction_type();
-        this.time = recrodBean.getTime();
-        this.recrodBean = recrodBean;
-    }
     public String toJosn() {
         String jsonStr = "";
         try{
@@ -88,18 +119,12 @@ public class BaseEvent{
 
         BaseEvent baseEvent = (BaseEvent) o;
 
-        if (time != baseEvent.time) return false;
-        if (category != null ? !category.equals(baseEvent.category) : baseEvent.category != null)
-            return false;
-        return action_type != null ? action_type.equals(baseEvent.action_type) : baseEvent.action_type == null;
+        return recrodBean != null ? recrodBean.equals(baseEvent.recrodBean) : baseEvent.recrodBean == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = category != null ? category.hashCode() : 0;
-        result = 31 * result + (action_type != null ? action_type.hashCode() : 0);
-        result = 31 * result + (int) (time ^ (time >>> 32));
-        return result;
+        return recrodBean != null ? recrodBean.hashCode() : 0;
     }
 }

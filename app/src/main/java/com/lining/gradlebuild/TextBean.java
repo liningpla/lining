@@ -9,8 +9,4 @@ import com.fission.recordupload.RecordBean;
 public class TextBean extends RecordBean{
     public String userId;
     public String userName;
-
-    public TextBean(String category, String action_type) {
-        super(category, action_type);
-    }
 }
