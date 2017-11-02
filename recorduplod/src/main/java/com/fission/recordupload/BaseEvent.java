@@ -16,8 +16,8 @@ public class BaseEvent{
      * RECORD_NORMAL 普通上报类型
      * RECORD_TRANSACTION 事务上报类型
      */
-    public static final String RECORD_NORMAL = "record_normal";
-    public static final String RECORD_TRANSACTION = "record_transaction";
+    private static final String RECORD_NORMAL = "record_normal";
+    private static final String RECORD_TRANSACTION = "record_transaction";
     private static BaseEvent baseEvent;
 
     private String category;
@@ -41,17 +41,16 @@ public class BaseEvent{
         baseEvent = new BaseEvent(RECORD_NORMAL, action_type);
         return baseEvent;
     }
-    public BaseEvent(String category, String action_type){
+    private BaseEvent(String category, String action_type){
         this.category = category;
         this.action_type = action_type;
     }
-    public BaseEvent(String category, String action_type, String transactionId){
+    private BaseEvent(String category, String action_type, String transactionId){
         this.category = category;
         this.action_type = action_type;
         this.transactionId = transactionId;
     }
     public BaseEvent obtainBean(RecordBean recrodBean){
-        recrodBean.setCategory(category);
         recrodBean.setAction_type(action_type);
         recrodBean.setTransactionId(transactionId);
         this.recrodBean = recrodBean;

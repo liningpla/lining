@@ -10,44 +10,23 @@ import java.io.Serializable;
 
 public class RecordBean implements Serializable {
 
-    private String category;//区分是普通上报还是具体
     private String action_type;
     private String transactionId;//该数据归属此id的事务
     private long time;
-
     public String dev;
     public int os_version;
-
-    public RecordBean(String category, String action_type) {
-        this.category = category;
-        this.action_type = action_type;
+    public RecordBean(String action_type) {
         this.time = System.currentTimeMillis();
         this.dev = String.valueOf(Build.BRAND + " " + Build.MODEL);
         this.os_version = Build.VERSION.SDK_INT;
     }
-
     public RecordBean() {}
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getAction_type() {
-        return action_type;
-    }
-
     public long getTime() {
         return time;
     }
-
     public void setTime(long time) {
         this.time = time;
     }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public void setAction_type(String action_type) {
         this.action_type = action_type;
     }
@@ -69,7 +48,6 @@ public class RecordBean implements Serializable {
 
         if (time != that.time) return false;
         if (os_version != that.os_version) return false;
-        if (!category.equals(that.category)) return false;
         if (!action_type.equals(that.action_type)) return false;
         if (!transactionId.equals(that.transactionId)) return false;
         return dev.equals(that.dev);
@@ -78,8 +56,7 @@ public class RecordBean implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = category.hashCode();
-        result = 31 * result + action_type.hashCode();
+        int result = action_type.hashCode();
         result = 31 * result + transactionId.hashCode();
         result = 31 * result + (int) (time ^ (time >>> 32));
         result = 31 * result + dev.hashCode();
