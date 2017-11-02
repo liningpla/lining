@@ -15,12 +15,11 @@ public class RecordBean implements Serializable {
     private long time;
     public String dev;
     public int os_version;
-    public RecordBean(String action_type) {
+    public RecordBean() {
         this.time = System.currentTimeMillis();
         this.dev = String.valueOf(Build.BRAND + " " + Build.MODEL);
         this.os_version = Build.VERSION.SDK_INT;
     }
-    public RecordBean() {}
     public long getTime() {
         return time;
     }
