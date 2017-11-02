@@ -75,6 +75,9 @@ public class BaseEvent{
     }
 
     public String toJosn() {
+        if(recrodBean == null){
+            return "";
+        }
         String jsonStr = "";
         try{
             jsonStr = JSON.toJSONString(recrodBean);
@@ -89,7 +92,7 @@ public class BaseEvent{
     private Map ConvertObjToMap(Object obj){
         Map<String,Object> reMap = new HashMap<>();
         if (obj == null)
-            return null;
+            return reMap;
         Field[] fields = obj.getClass().getDeclaredFields();
         try {
             for(int i=0;i<fields.length;i++){
