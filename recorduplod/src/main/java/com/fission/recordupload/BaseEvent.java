@@ -16,8 +16,8 @@ public class BaseEvent{
      * RECORD_NORMAL 普通上报类型
      * RECORD_TRANSACTION 事务上报类型
      */
-    private static final String RECORD_NORMAL = "record_normal";
-    private static final String RECORD_TRANSACTION = "record_transaction";
+    public static final String RECORD_NORMAL = "record_normal";
+    public static final String RECORD_TRANSACTION = "record_transaction";
     private static BaseEvent baseEvent;
 
     private String category;
